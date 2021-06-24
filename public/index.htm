@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Rust + WASM testing</title>
+		<style>
+			h1 {
+				font-size: 5em;
+			}
+			h2 {
+				font-size: 3em;
+			}
+		</style>
+	</head>
+	<body>
+		<input class="x" value="69">
+		+
+		<input class="y" value="420">
+		<button>sum from WASM</button>
+		<h2>sum is:</h4>
+		<h1>&nbsp;</h1>
+		<script>
+			var instance;
+
+			var importObject = {
+				imports: {
+					imported_func: function(arg) {
+						console.log(arg);
+					}
+				}
+			};
+
+			function updateSumFromXAndY() {
+
+				// Get sum of two values from WASM
+				x = document.querySelector('.x').value;
+				y = document.querySelector('.y').value;
+				wasmSum = instance.exports.sum(x,y);
+
+				// DOM
+				document.querySelector('h1').textContent = wasmSum;
+			}
+
+			document.addEventListener('click', function (event) {
+
+				// If the clicked element doesn't have the right selector, bail
+				if (!event.target.matches('button')) return;
+
+				// Don't follow the link
+				event.preventDefault();
+
+				updateSumFromXAndY();
+			}, false);
+
+
+			fetch('rust_wasm.wasm').then(response =>
+				response.arrayBuffer()
+			).then(bytes =>
+				WebAssembly.instantiate(bytes, importObject)
+			).then(result => {
+				instance = result.instance;
+				updateSumFromXAndY();
+			}).catch(console.error);
+		</script>
+	</body>
+</html>

@@ -1,0 +1,20 @@
+{
+	"name": "rust-wasm",
+	"version": "0.1.0",
+	"description": "Rust + WASM testing",
+	"main": "index.js",
+	"scripts": {
+	  "test": "node index.js"
+	},
+	"repository": {
+	  "type": "git",
+	  "url": "https://github.com/AlexanderGW/rust-wasm.git"
+	},
+	"author": "Alexander Gailey-White",
+	"license": "See LICENSE",
+	"bugs": {
+	  "url": "https://github.com/AlexanderGW/rust-wasm/issues"
+	},
+	"homepage": "https://github.com/AlexanderGW/rust-wasm#readme"
+  }
+  
